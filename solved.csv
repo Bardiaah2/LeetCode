@@ -1,0 +1,14 @@
+num, difficulty, function name, name, tags
+94, easy, inorderTraversal, Binary Tree Inorder Traversal, recursion
+2, medium, addTwoNumbers, Add Two Numbers, recursion
+206, easy, reverseList, Reverse Linked List, linkedlist
+19, medium, removeNthFromEnd, Remove Nth Node From End of List, linkedlist
+160, easy, getIntersectionNode, Intersection of Two Linked Lists, linkedlist
+24, medium, swapPairs, Swap Nodes in Pairs, linkedlist
+141, easy, hasCycle, Linked List Cycle, linkedlist
+142, medium,detectCycle, Linked List Cycle II, linkedlist
+21, easy, mergeTwoLists, Merge Two Sorted Lists, linkedlist
+102, medium, levelOrder, Binary Tree Level Order Traversal,tree
+101, easy, isSymmetric, Symmetric Tree, tree
+112, easy, hasPathSum, Path Sum, tree
+328, medium, oddEvenList, Odd Even Linked List, linkedlist
