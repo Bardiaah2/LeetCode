@@ -16,16 +16,17 @@ class MakeClass:
         value = self.value
         # make a root
         root = TreeNode(value.pop(0))
-        queue = [root]
+        queue: List[TreeNode] = [root]
 
         while value:
             temp_root = queue.pop()
 
-            # add the next two to right and left
-            left_val, right_val = value.pop(0), value.pop(0)
             if temp_root is None:
                 queue = [null, null] + queue
                 continue
+            # add the next two to right and left
+            if len(value) > 1: left_val, right_val = value.pop(0), value.pop(0)
+            else: left_val, right_val = value.pop(0), null
             if left_val: temp_root.left = TreeNode(left_val)
             if right_val: temp_root.right = TreeNode(right_val)
 
@@ -103,6 +104,28 @@ class Test(unittest.TestCase):
         head = MakeClass(ListNode, head).get()
         self.assertEqual(str(Solution().oddEvenList(head)), str(MakeClass(ListNode, [1,3,5,7,2,4,6,8]).get()))
 
+
+    def test_postorderTraversal(self):
+        root = [1,null,2,3]
+        root = MakeClass(TreeNode, root).get()
+        self.assertEqual(Solution().postorderTraversal(root), [3,2,1])
+
+    
+    def test_inorderTraversal(self):
+        root = [1,null,2,3]
+        root = MakeClass(TreeNode, root).get()
+        self.assertEqual(Solution().inorderTraversal(root), [1,3,2])
+        
+
+    def test_buildTree(self):
+        # test case 1
+        inorder = [9,3,15,20,7]
+        postorder = [9,15,7,20,3]
+        self.assertEqual(str(Solution().buildTree(inorder, postorder)), str(MakeClass(TreeNode, [3,9,20,null,null,15,7]).get()))
+        # test case 2
+        inorder = [1,2,3,4]
+        postorder = [2,1,4,3]
+        self.assertEqual(str(Solution().buildTree(inorder, postorder)), str(MakeClass(TreeNode, [3,1,4,null,2]).get()))
 
 if __name__ == '__main__':
     unittest.main()

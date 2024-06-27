@@ -12,3 +12,5 @@ num, difficulty, function name, name, tags
 101, easy, isSymmetric, Symmetric Tree, tree
 112, easy, hasPathSum, Path Sum, tree
 328, medium, oddEvenList, Odd Even Linked List, linkedlist
+145, easy, postorderTraversal, Binary Tree Postorder Traversal, tree
+84, easy, inorderTraversal, Binary Tree Inorder Traversal, tree

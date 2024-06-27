@@ -222,7 +222,46 @@ class Solution:
         return oddHead
 
 
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:  # 145
+        if root is None:
+            return []
+
+        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
+
+
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:  # 94
+        if root is None:
+            return []
+
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+
+
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:  # 106
+        # inorder is first comes left then root then right
+        # postorder is first comes left then right then root
+        # both methods are DFS
+        if not inorder:
+            return None
+
+        temp_root = postorder.pop()
+        # spliting the list
+        index = inorder.index(temp_root)
+        right_inorder, left_inorder = inorder[index+1:], inorder[:index]
+
+        if len(right_inorder) == 1:
+            root = TreeNode(temp_root, right=TreeNode(right_inorder[0]))
+        else:
+            root = TreeNode(temp_root, right=self.buildTree(right_inorder, postorder))
+
+        if len(left_inorder) == 1:
+            root.left = TreeNode(left_inorder[0])
+        else:
+            root.left = self.buildTree(left_inorder, postorder)
+
+        return root
+
+
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:  # 108
         pass
 
 
