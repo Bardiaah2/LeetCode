@@ -110,12 +110,12 @@ class Test(unittest.TestCase):
         root = MakeClass(TreeNode, root).get()
         self.assertEqual(Solution().postorderTraversal(root), [3,2,1])
 
-    
+
     def test_inorderTraversal(self):
         root = [1,null,2,3]
         root = MakeClass(TreeNode, root).get()
         self.assertEqual(Solution().inorderTraversal(root), [1,3,2])
-        
+
 
     def test_buildTree(self):
         # test case 1
@@ -126,6 +126,29 @@ class Test(unittest.TestCase):
         inorder = [1,2,3,4]
         postorder = [2,1,4,3]
         self.assertEqual(str(Solution().buildTree(inorder, postorder)), str(MakeClass(TreeNode, [3,1,4,null,2]).get()))
+        # test case 3
+        inorder = [-1]
+        postorder = [-1]
+        self.assertEqual(str(Solution().buildTree(inorder, postorder)), str(MakeClass(TreeNode, [-1]).get()))
+
+
+    def test_sortedArrayToBST(self):
+        # test case 1
+        nums = [-10,-3,0,5,9]
+        self.assertEqual(str(Solution().sortedArrayToBST(nums)), str(MakeClass(TreeNode, [0,-10,5,null,-3,null,9]).get()))
+        # test case 2
+        nums = [1,3]
+        self.assertEqual(str(Solution().sortedArrayToBST(nums)), str(MakeClass(TreeNode, [1,null,3]).get()))
+
+
+    def test_isPalindrome(self):
+        # test case 1
+        head = MakeClass(ListNode, [1,2,2,1]).get()
+        self.assertEqual(Solution().isPalindrome(head), True)
+        # test case 2
+        head = MakeClass(ListNode, [1,2]).get()
+        self.assertEqual(Solution().isPalindrome(head), False)
+
 
 if __name__ == '__main__':
     unittest.main()

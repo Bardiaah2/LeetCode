@@ -154,7 +154,7 @@ class Solution:
         return None
 
 
-    def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:  # 21
+    def mergeTwoLists(self, list1: ListNode | None, list2: ListNode | None) -> ListNode:  # 21
         if not list1 or not list2:
             if lis := list1 or list2:
                 return ListNode(lis.val, self.mergeTwoLists(lis.next, None))
@@ -187,7 +187,7 @@ class Solution:
 
 
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:  # 101
-        def wrapper(root_right: TreeNode, root_left: TreeNode) -> bool:
+        def wrapper(root_right: TreeNode | None, root_left: TreeNode | None) -> bool:
             if not root_left or not root_right:
                 return isinstance(root_left, root_right.__class__)
             return root_right.val == root_left.val and wrapper(root_right.left, root_left.right) and wrapper(root_left.left, root_right.right)
@@ -236,33 +236,85 @@ class Solution:
         return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
 
 
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:  # 144
+        if root is None:
+            return []
+        return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
+
+
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:  # 106
-        # inorder is first comes left then root then right
-        # postorder is first comes left then right then root
-        # both methods are DFS
-        if not inorder:
+        # inorder left root right [[left.left left.val left.right] root.val [right.left right.val right.right]]
+        # postorder left right root [[left.left left.right left.val] [right.left right.right right.val] root.val]
+        if not postorder:
             return None
 
-        temp_root = postorder.pop()
-        # spliting the list
-        index = inorder.index(temp_root)
-        right_inorder, left_inorder = inorder[index+1:], inorder[:index]
+        root = TreeNode(postorder.pop())
+        # split inorder from root.val
+        index = inorder.index(root.val)
+        left_inorder, right_inorder = inorder[:index], inorder[index+1:]
+        # split postorder from right.left
+        left_postorder, right_postorder = postorder[:len(left_inorder)], postorder[len(left_inorder):]
 
-        if len(right_inorder) == 1:
-            root = TreeNode(temp_root, right=TreeNode(right_inorder[0]))
-        else:
-            root = TreeNode(temp_root, right=self.buildTree(right_inorder, postorder))
-
-        if len(left_inorder) == 1:
-            root.left = TreeNode(left_inorder[0])
-        else:
-            root.left = self.buildTree(left_inorder, postorder)
-
+        root.right = self.buildTree(right_inorder, right_postorder)
+        root.left = self.buildTree(left_inorder, left_postorder)
         return root
 
 
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:  # 108
-        pass
+        if not nums:
+            return None
+        middle_index = (len(nums)-1) // 2
+        root = TreeNode(nums.pop(middle_index))
+        nums_left, nums_right  = nums[:middle_index], nums[middle_index:]
+
+        root.right = self.sortedArrayToBST(nums_right)
+        root.left = self.sortedArrayToBST(nums_left)
+
+        return root
+
+
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:  # 234
+        # find the middle
+        end = head
+        middle = head
+        while end.next and end.next.next:
+            end = end.next.next
+            middle = middle.next
+        # reverse the second half
+        end = middle.next
+        middle.next = None
+        while end:
+            per = end
+            end = end.next
+            per.next = middle
+            middle = per
+
+        # compare the two parts
+        while middle and head:
+            if head.val != middle.val:
+                return False
+            head = head.next
+            middle = middle.next
+
+        return True
+
+
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:  # 105
+        # inorder: [left, val, right]
+        # preorder: [val, left, right]
+        if not preorder:
+            return None
+        # make root
+        root = TreeNode(preorder.pop(0))
+        # split inorder
+        index = inorder.index(root.val)
+        left_inorder, right_inorder = inorder[:index], inorder[index+1:]
+        # split preorder
+        left_preorder, right_preorder = preorder[:len(left_inorder)], preorder[len(left_inorder):]
+
+        root.left, root.right = self.buildTree(left_preorder, left_inorder), self.buildTree(right_preorder, right_inorder)
+
+        return root
 
 
     def countSmaller(self, nums: List[int]) -> List[int]:  # 315

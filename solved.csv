@@ -14,3 +14,8 @@ num, difficulty, function name, name, tags
 328, medium, oddEvenList, Odd Even Linked List, linkedlist
 145, easy, postorderTraversal, Binary Tree Postorder Traversal, tree
 84, easy, inorderTraversal, Binary Tree Inorder Traversal, tree
+144, easy, preorderTraversal, Binary Tree Preorder Traversal, tree
+108, easy, sortedArrayToBST, Convert Sorted Array to Binary Search Tree, tree
+106, medium, buildTree, Construct Binary Tree from Inorder and Postorder Traversal, tree
+234, easy, isPalindrome, Palindrome Linked List, linkedlist
+105, medium, buildTree, Construct Binary Tree from Preorder and Inorder Traversal, tree
