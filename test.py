@@ -121,15 +121,15 @@ class Test(unittest.TestCase):
         # test case 1
         inorder = [9,3,15,20,7]
         postorder = [9,15,7,20,3]
-        self.assertEqual(str(Solution().buildTree(inorder, postorder)), str(MakeClass(TreeNode, [3,9,20,null,null,15,7]).get()))
+        self.assertEqual(str(Solution().buildTree105(inorder, postorder)), str(MakeClass(TreeNode, [3,9,20,null,null,15,7]).get()))
         # test case 2
         inorder = [1,2,3,4]
         postorder = [2,1,4,3]
-        self.assertEqual(str(Solution().buildTree(inorder, postorder)), str(MakeClass(TreeNode, [3,1,4,null,2]).get()))
+        self.assertEqual(str(Solution().buildTree105(inorder, postorder)), str(MakeClass(TreeNode, [3,1,4,null,2]).get()))
         # test case 3
         inorder = [-1]
         postorder = [-1]
-        self.assertEqual(str(Solution().buildTree(inorder, postorder)), str(MakeClass(TreeNode, [-1]).get()))
+        self.assertEqual(str(Solution().buildTree105(inorder, postorder)), str(MakeClass(TreeNode, [-1]).get()))
 
 
     def test_sortedArrayToBST(self):
@@ -149,6 +149,35 @@ class Test(unittest.TestCase):
         head = MakeClass(ListNode, [1,2]).get()
         self.assertEqual(Solution().isPalindrome(head), False)
 
+
+    def test_addTwoNumbers(self):
+        # test case 1
+        l1, l2 = MakeClass(ListNode, [2,4,3]).get(), MakeClass(ListNode, [5,6,4]).get()
+        self.assertEqual(Solution().addTwoNumbers(l1, l2).__str__(), MakeClass(ListNode, [7,0,8]).get().__str__())
+        # test case 2
+        l1, l2 = MakeClass(ListNode, [9,9,9,9,9,9,9]).get(), MakeClass(ListNode, [9,9,9,9]).get()
+        self.assertEqual(Solution().addTwoNumbers(l1, l2).__str__(), MakeClass(ListNode, [8,9,9,9,0,0,0,1]).get().__str__())
+
+
+    def test_isBalanced(self):
+        # test case 1
+        root = MakeClass(TreeNode, [1,2,2,3,3,null,null,4,4]).get()
+        self.assertEqual(Solution().isBalanced(root), False)
+        # test case 2
+        root = MakeClass(TreeNode, [1,2,3,4,5,6,null,8]).get()
+        self.assertEqual(Solution().isBalanced(root), True)
+        # test case 3
+        root = MakeClass(TreeNode, [3,9,20,null,null,15,7]).get()
+        self.assertEqual(Solution().isBalanced(root), True)
+
+
+    def test_countNodes(self):
+        # test case 1
+        root = MakeClass(TreeNode, [1,2,3,4,5,6]).get()
+        self.assertEqual(Solution().countNodes(root), 6)
+        # test case 2
+        root = MakeClass(TreeNode, [1]).get()
+        self.assertEqual(Solution().countNodes(root), 1)
 
 if __name__ == '__main__':
     unittest.main()

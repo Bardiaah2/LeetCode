@@ -47,30 +47,26 @@ class ListNode:
         return 'ListNode'
 
 
+class Node:
+    def __init__(self, val: int, next: Optional['Node'], random: Optional['Node']) -> None:
+        self.val = val
+        self.next = next
+        self.random = random
+
+    def __str__(self) -> str:
+        temp = self
+        result = []
+        while temp:
+            if temp.random: result.append([temp.val, temp.random.val])
+            else: result.append([temp.val, None])
+            temp = temp.next
+        return result.__str__()
+
+    def __repr__(self) -> str:
+        return 'Node'
+
+
 class Solution:
-    def inorderTraversal(self, root: TreeNode):  # 94
-        if root.left is None:
-            return [root.val] + self.inorderTraversal(root.right) if root.right else [root.val]
-        return self.inorderTraversal(root.left) + [root.val]
-
-
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:  # 2
-        add = False
-        if l1.val + l2.val >= 10:
-            add = True
-        if l1.next is None and l2.next is None:
-            if add:
-                return ListNode(l1.val+l2.val % 10, next=ListNode(1))
-            return ListNode(l1.val+l2.val % 10)
-        else:
-            next_l1 = l1.next or ListNode(0)
-            next_l2 = l2.next or ListNode(0)
-            if add:
-                next_l1.val += 1
-                return ListNode(l1.val+l2.val % 10, next=self.addTwoNumbers(next_l1, next_l2))
-            return ListNode(l1.val+l2.val % 10, next=self.addTwoNumbers(next_l1, next_l2))
-
-
     def reverseList(self, head: ListNode) -> ListNode:  # 206
         if head is None:
             return None
@@ -242,7 +238,7 @@ class Solution:
         return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
 
 
-    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:  # 106
+    def buildTree105(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:  # 106
         # inorder left root right [[left.left left.val left.right] root.val [right.left right.val right.right]]
         # postorder left right root [[left.left left.right left.val] [right.left right.right right.val] root.val]
         if not postorder:
@@ -255,8 +251,8 @@ class Solution:
         # split postorder from right.left
         left_postorder, right_postorder = postorder[:len(left_inorder)], postorder[len(left_inorder):]
 
-        root.right = self.buildTree(right_inorder, right_postorder)
-        root.left = self.buildTree(left_inorder, left_postorder)
+        root.right = self.buildTree105(right_inorder, right_postorder)
+        root.left = self.buildTree105(left_inorder, left_postorder)
         return root
 
 
@@ -299,7 +295,7 @@ class Solution:
         return True
 
 
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:  # 105
+    def buildTree106(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:  # 105
         # inorder: [left, val, right]
         # preorder: [val, left, right]
         if not preorder:
@@ -312,10 +308,119 @@ class Solution:
         # split preorder
         left_preorder, right_preorder = preorder[:len(left_inorder)], preorder[len(left_inorder):]
 
-        root.left, root.right = self.buildTree(left_preorder, left_inorder), self.buildTree(right_preorder, right_inorder)
+        root.left, root.right = self.buildTree106(left_preorder, left_inorder), self.buildTree106(right_preorder, right_inorder)
 
         return root
 
 
-    def countSmaller(self, nums: List[int]) -> List[int]:  # 315
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:  # 2
+        head = end = ListNode()
+        while True:
+            end.val += l1.val if l1 else 0
+            end.val += l2.val if l2 else 0
+            if end.val >= 10:
+                end.val %= 10
+                end.next = ListNode(1)
+            l1, l2 = l1.next if l1 else None, l2.next if l2 else None
+            if not l1 and not l2:
+                return head
+            else:
+                end.next = end.next if end.next else ListNode(0)
+                end = end.next
+
+
+    def removeElement(self, nums: List[int], val: int) -> int:  # 27
+        # two pointer technique
+        i, j = 0, len(nums)-1
+        if j < 0:
+            return 0
+        while i < j:
+            # if nums[j] == val: j--
+            if nums[j] == val:
+                j -= 1
+            # if nums[i] == val: nums[i] = nums[j]; j-- i++
+            elif nums[i] == val:
+                nums[i], nums[j] = nums[j], nums[i]
+                j -= 1
+                i += 1
+            # if nums[i] != val: i++ count++
+            else:
+                i += 1
+        # return i + 1 if  the last item is not value of val
+        return i + (nums[i] != val)
+
+
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:  # 61
+        if not head or not head.next or not k:
+            return head
+        # have end and per
+        end, per = head, head
+
+        end = head
+        # seperate end and per by k%n  nodes
+        for i in range(k):  # O(n)
+            end = end.next
+            if end is None:
+                end = head
+                for _ in range(k%(i+1)):
+                    end = end.next
+                break
+
+        # moving end and per together till end hits the end
+        while end.next:  # O(n)
+            end = end.next
+            per = per.next
+
+        result = per.next
+        if not result:
+            return head
+        per.next = None
+        end.next = head
+        return result
+
+
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:  # 110
+        def height(root: Optional[TreeNode]) -> int:
+            if not root:
+                return 0
+            return 1+max(height(root.right), height(root.left))
+        if not root:
+            return True
+        if -1 <= height(root.right) - height(root.left) <= 1:
+            return self.isBalanced(root.right) and self.isBalanced(root.left)
+        return False
+
+
+    def countNodes(self, root: Optional[TreeNode]) -> int:  # 222
+        # root = root.right if depth(root.right) == d else root.left
+        def depth(root: Optional[TreeNode]) -> int:
+            d = 0
+            while root.left:
+                root = root.left
+                d += 1
+            return d
+
+        d = depth(root)
+        result = 2**(d-1) - 1
+        i = 0
+        while root.left and root.right:
+            if (x := (depth(root.right)+1)) == d:
+                root = root.right
+                result += 2**x
+            else:
+                root = root.left
+            i+=1
+
+        return int(result)+1
+
+
+    def copyRandomList(self, head: Optional[Node]) -> Optional[Node]: # 138
+        pass
+
+
+    def countSmaller(self, nums: List[int]) -> List[int]:  # 315 hard
+        pass
+
+
+    def largestRectangleArea(self, heights: List[int]) -> int:  # 84 hard
         pass
