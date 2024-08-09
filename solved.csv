@@ -20,3 +20,4 @@ num, difficulty, function name, name, tags
 105, medium, buildTree, Construct Binary Tree from Preorder and Inorder Traversal, tree
 27, easy, removeElement, Remove Element, array
 61, medium, rotateRight, Rotate List, linkedList
+110, easy, isBalanced, Balanced Binary Tree, tree
