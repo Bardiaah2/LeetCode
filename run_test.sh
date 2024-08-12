@@ -48,3 +48,5 @@ for Line in $fails_error_array ; do
     echo ""
 
 done
+
+rm testfile.txt
