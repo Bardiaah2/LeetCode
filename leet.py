@@ -392,35 +392,66 @@ class Solution:
 
 
     def countNodes(self, root: Optional[TreeNode]) -> int:  # 222
-        # root = root.right if depth(root.right) == d else root.left
-        def depth(root: Optional[TreeNode]) -> int:
-            d = 0
-            while root.left:
-                root = root.left
-                d += 1
-            return d
+        # go to leftest and rightest leaf and if the depths are the same return 2**(d+1)-1
+        # else return 2**(d) + self.countNodes(root.left)
+        if not root:
+            return 0
+        l, r = 0, 0
+        root_left, root_right = root.left, root.right
+        while root_left:
+            if root_right:
+                r+=1
+                root_right = root_right.right
+            l+=1
+            root_left = root_left.left
 
-        d = depth(root)
-        result = 2**(d-1) - 1
-        i = 0
-        while root.left and root.right:
-            if (x := (depth(root.right)+1)) == d:
-                root = root.right
-                result += 2**x
+        return 2**(l+1)-1 if l==r else 1 + self.countNodes(root.left) + self.countNodes(root.right)
+
+
+    def getDecimalValue(self, head: ListNode) -> int:  # 1290
+        result = 0
+        while head:
+            result *= 2
+            result += head.val
+            head = head.next
+
+        return result
+
+
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:  # 83
+        #if head: if head.next: if head.next.val == head.val: head.next = head.next.next
+        if not head or not head.next:
+            return head
+        result = head
+        while head and head.next:
+            if head.next.val == head.val:
+                head.next = head.next.next
             else:
-                root = root.left
-            i+=1
+                head = head.next
 
-        return int(result)+1
-
-
-    def copyRandomList(self, head: Optional[Node]) -> Optional[Node]: # 138
-        pass
+        return result
 
 
-    def countSmaller(self, nums: List[int]) -> List[int]:  # 315 hard
-        pass
+    def threeSum(self, nums: List[int]) -> List[List[int]]:  # 15
+        def two_sum(nums: List[int], target: int) -> List[List[int]]:
+            remain = {}
+            __result = []
+            for i in nums:
+                if remain.__contains__(i):
+                    __result += [[i, target-i]]
+                else:
+                    remain[target-i]=None
+            return __result
 
+        result = []
+        checked = {}
+        for ind, i in enumerate(nums):  # O(n)
+            if checked.__contains__(i):
+                continue
+            if x := two_sum(nums[ind+1:], -i):  # o(n)
+                result+=[[i, t[0], t[1]] for t in x]
+        return result
 
-    def largestRectangleArea(self, heights: List[int]) -> int:  # 84 hard
-        pass
+# 138
+# # 315 hard
+# # 84 hard

@@ -21,3 +21,6 @@ num, difficulty, function name, name, tags
 27, easy, removeElement, Remove Element, array
 61, medium, rotateRight, Rotate List, linkedList
 110, easy, isBalanced, Balanced Binary Tree, tree
+222, easy, countNodes, Count Complete Tree Nodes, tree
+1290, easy, getDecimalValue, Convert Binary Number in a Linked List to Integer, linkedList
+83, easy, deleteDuplicates, Remove Duplicates from Sorted List, linkedList
