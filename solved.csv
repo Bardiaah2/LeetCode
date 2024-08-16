@@ -24,3 +24,4 @@ num, difficulty, function name, name, tags
 222, easy, countNodes, Count Complete Tree Nodes, tree
 1290, easy, getDecimalValue, Convert Binary Number in a Linked List to Integer, linkedList
 83, easy, deleteDuplicates, Remove Duplicates from Sorted List, linkedList
+69, easy, sqrt, sqrt(x), two pointer

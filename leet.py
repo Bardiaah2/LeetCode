@@ -452,6 +452,22 @@ class Solution:
                 result+=[[i, t[0], t[1]] for t in x]
         return result
 
+
+    def sqrt(self, x: int) -> int:  # 69
+        # two pointer approach
+        left, right = 0, x
+        ans: int = -1  # ***
+        while left <= right:
+            mid  = (left + right) // 2
+            if mid * mid == x:
+                return mid
+            elif mid * mid < x:
+                ans = mid
+                left = mid + 1
+            else:
+                right = mid - 1
+        return ans
+
 # 138
 # # 315 hard
 # # 84 hard
