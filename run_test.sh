@@ -37,8 +37,9 @@ clear
 
 function extractLine {  # number of the line, filename
     filename=$2
-    if [ $(wc -l < "$filename") -ge $1 ]; then
-        echo $( head -n $1 "$filename" | tail -n 1 )
+    if [ $(wc -l < "$filename") -ge $1 ]; then  # this checks if the number of lines in filename is ge that $1
+        echo $( head -n $1 "$filename" | tail -n 1 )  # first take the first $1 number of line in filenames and
+        # uses | to pass it to tail command which outputs the last line
     fi
 }
 
@@ -50,3 +51,11 @@ for Line in $fails_error_array ; do
 done
 
 rm testfile.txt
+
+echo "Would you like to see the detailed failed test case(s)?(y / n) "
+read answer
+if [ $answer = "y" ]; then
+    python3 -m unittest test.Test
+else
+    clear
+fi

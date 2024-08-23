@@ -433,23 +433,42 @@ class Solution:
 
 
     def threeSum(self, nums: List[int]) -> List[List[int]]:  # 15
-        def two_sum(nums: List[int], target: int) -> List[List[int]]:
-            remain = {}
-            __result = []
-            for i in nums:
-                if remain.__contains__(i):
-                    __result += [[i, target-i]]
-                else:
-                    remain[target-i]=None
-            return __result
-
-        result = []
-        checked = {}
-        for ind, i in enumerate(nums):  # O(n)
-            if checked.__contains__(i):
+        if len(nums) < 3:
+            return []
+        res = []
+        nums.sort()
+        for i in range(len(nums)):
+            if i > 0 and nums[i] == nums[i-1]:  # reduce duplicate
                 continue
-            if x := two_sum(nums[ind+1:], -i):  # o(n)
-                result+=[[i, t[0], t[1]] for t in x]
+            target = -nums[i]
+            hashtable = {}
+            for j in range(i+1, len(nums)):
+                d = target - nums[j]
+                if d in hashtable:
+                    if hashtable[d] > 1:  # reduce duplicate
+                        continue
+                    hashtable[d] += 1
+                    res.append([nums[i], d, nums[j]])
+                else:
+                    hashtable[nums[j]] = 1
+        return res
+
+
+    def generateParenthesis(self, n: int) -> List[str]:  # 22
+        def wrapper(char: str, open: int, close: int, result: List[str]) -> List[str]:
+            if len(char) == 2 * n:
+                result.append(char)
+                return
+
+            if open < n:
+                wrapper(char + '(', open+1, close, result)
+
+            if close < open:
+                wrapper(char+')', open, close+1, result)
+
+        result  = []
+        char = ''
+        wrapper(char, 0, 0, result)
         return result
 
 
@@ -467,6 +486,51 @@ class Solution:
             else:
                 right = mid - 1
         return ans
+
+
+    def romanToInt(self, s: str) -> int:  # 13
+        vals = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        total = 0
+
+        i = len(s) - 1
+        while i > 0:
+            if vals[s[i - 1]] < vals[s[i]]:
+                total += vals[s[i]] - vals[s[i - 1]]
+                i -= 2
+            else:
+                total += vals[s[i]]
+                i -= 1
+        if i == 0:
+            total += vals[s[0]]
+
+        return total
+
+
+    def intToRoman(self, num: int) -> str:  # 12
+        def step(chars: List[str], x: int) -> str:  # TODO: clean this shit up
+            # define a wrapper that take a list of three elements and a single digit number and returns a string of characters
+            if not x:
+                return ""
+            elif x <= 5:
+                if x == 4:
+                    return f"{chars[0]}{chars[1]}"
+                elif x == 5:
+                    return f"{chars[1]}"
+                return f"{chars[0]}" * x
+            else:
+                if x == 9:
+                    return f"{chars[0]}{chars[2]}"
+                return f"{chars[1]}" + f"{chars[0]}" * (x-5)
+
+        charecters = ["I", "V", "X", "L", "C", "D", "M"]
+        result = ""
+        i = 0
+        for x in str(num)[::-1]:
+            result = step(charecters[i:i+3], int(x)) + result
+            i+=2
+
+        return result
+
 
 # 138
 # # 315 hard

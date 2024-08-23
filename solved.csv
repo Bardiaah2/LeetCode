@@ -25,3 +25,6 @@ num, difficulty, function name, name, tags
 1290, easy, getDecimalValue, Convert Binary Number in a Linked List to Integer, linkedList
 83, easy, deleteDuplicates, Remove Duplicates from Sorted List, linkedList
 69, easy, sqrt, sqrt(x), two pointer
+22, meduim, generateParenthesis, Generate Parentheses, recursion
+13, easy, romanToInt, Roman to Integer, hashmap
+12, meduim, intToRoman, integer to Roman, hashmap
