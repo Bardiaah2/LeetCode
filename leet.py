@@ -532,6 +532,26 @@ class Solution:
         return result
 
 
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:  # 257
+        if not root:
+            return []
+        if not (root.right or root.left):
+            return [f"{root.val}"]
+        return [f"{root.val}->{i}" for i in self.binaryTreePaths(root.right) + self.binaryTreePaths(root.left)]
+
+
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:  # 404
+        def helper(root,is_left):
+            if(root==None):
+                return 0
+            if(root.left==None and root.right==None and is_left):
+                return root.val
+
+            return helper(root.left,True)+helper(root.right,False)
+        return helper(root,False)
+
+
+# --recurse-submodules
 # 138
 # # 315 hard
 # # 84 hard

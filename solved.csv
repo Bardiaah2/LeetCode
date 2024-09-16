@@ -28,3 +28,5 @@ num, difficulty, function name, name, tags
 22, meduim, generateParenthesis, Generate Parentheses, recursion
 13, easy, romanToInt, Roman to Integer, hashmap
 12, meduim, intToRoman, integer to Roman, hashmap
+257, easy, binaryTreePaths, Binary Tree Paths, tree
+404, easy, sumOfLeftLeaves, Sum of Left Leaves, tree

@@ -214,6 +214,15 @@ class Test(unittest.TestCase):
         self.assertEqual(Solution().intToRoman(num), "MCMXCIV")
 
 
+    def test_sumOfLeftLeaves(self):
+        # test case 1
+        root = MakeClass(TreeNode, [3,9,20,null,null,15,7]).get()
+        self.assertEqual(Solution().sumOfLeftLeaves(root), 24)
+        # test case 2
+        root = MakeClass(TreeNode, [1]).get()
+        self.assertEqual(Solution().sumOfLeftLeaves(root), 0)
+
+
 if __name__ == '__main__':
     test = unittest.main(exit=False)
     print(test.result.failures)
