@@ -59,3 +59,8 @@ if [ $answer = "y" ]; then
 else
     clear
 fi
+
+
+# $? is the exit code of the most recent command
+# $PATH is the paths terminal looks for commands
+# export

@@ -25,8 +25,12 @@ num, difficulty, function name, name, tags
 1290, easy, getDecimalValue, Convert Binary Number in a Linked List to Integer, linkedList
 83, easy, deleteDuplicates, Remove Duplicates from Sorted List, linkedList
 69, easy, sqrt, sqrt(x), two pointer
-22, meduim, generateParenthesis, Generate Parentheses, recursion
+22, medium, generateParenthesis, Generate Parentheses, recursion
 13, easy, romanToInt, Roman to Integer, hashmap
-12, meduim, intToRoman, integer to Roman, hashmap
+12, medium, intToRoman, integer to Roman, hashmap
 257, easy, binaryTreePaths, Binary Tree Paths, tree
 404, easy, sumOfLeftLeaves, Sum of Left Leaves, tree
+1337, easy, kWeakestRows, The K Weakest Rows in a Matrix, list
+455, easy, findContentChildren, Assign Cookies, list
+35, easy, searchInsert, Search Insert Position, binary search
+15, medium, threeSum, 3sum, hashmap

@@ -223,6 +223,15 @@ class Test(unittest.TestCase):
         self.assertEqual(Solution().sumOfLeftLeaves(root), 0)
 
 
+    def test_countSmaller(self):
+        # test case 1
+       self.assertEqual(Solution().countSmaller([5,2,6,1]), [2,1,1,0])
+       # test case 2
+       self.assertEqual(Solution().countSmaller([-1]), [0])
+       # test case 3
+       self.assertEqual(Solution().countSmaller([-1, -1]), [0, 0])
+
+
 if __name__ == '__main__':
     test = unittest.main(exit=False)
     print(test.result.failures)

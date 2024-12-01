@@ -551,6 +551,77 @@ class Solution:
         return helper(root,False)
 
 
+    def countSmaller(self, nums: List[int]) -> List[int]:  # 315
+        pass
+
+    def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:  # 1337
+        solders = {}
+        for i in range(len(mat)):
+            for j in mat[i]:
+                solders.setdefault(i,0)
+                if j == 0:
+                    break
+                else:
+                    solders[i] += 1
+
+        result = list(solders.keys())
+        result.sort(key=lambda x: solders[x])
+        return result[0:k]
+
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:  # 455
+        g.sort(reverse=True)
+        s.sort(reverse=True)
+        total=0
+        ind1=ind2=0
+        while ind1<len(g) and ind2<len(s):
+            if g[ind1]<=s[ind2]:
+                total+=1
+                ind1+=1
+                ind2+=1
+            else:ind1+=1
+        return total
+
+    def fairCandySwap(self, aliceSizes: List[int], bobSizes: List[int]) -> List[int]:  # 888
+        pass
+
+    def searchInsert(self, nums: List[int], target: int) -> int:  # 35
+        i = 0
+        j = len(nums)-1
+        mid = len(nums)
+        while (j >= i):
+            mid = (int) (j + i) / 2
+            if (nums[mid] > target):
+                j = mid - 1
+            elif (nums[mid] < target):
+                i = mid + 1
+            else:
+                return mid
+
+        return i
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:  # 15
+        if len(nums) < 3:
+            return []
+        res = []
+        nums.sort()
+        for i in range(len(nums)):
+            if i > 0 and nums[i] == nums[i-1]:  # reduce duplicate
+                continue
+            target = -nums[i]
+            hashtable = {}
+            for j in range(i+1, len(nums)):
+                d = target - nums[j]
+                if d in hashtable:
+                    if hashtable[d] > 1:  # reduce duplicate
+                        continue
+                    hashtable[d] += 1
+                    res.append([nums[i], d, nums[j]])
+                else:
+                    hashtable[nums[j]] = 1
+        return res
+
+
+
 # --recurse-submodules
 # 138
 # # 315 hard
