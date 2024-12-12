@@ -34,3 +34,6 @@ num, difficulty, function name, name, tags
 455, easy, findContentChildren, Assign Cookies, list
 35, easy, searchInsert, Search Insert Position, binary search
 15, medium, threeSum, 3sum, hashmap
+888, easy, fairCandySwap, Fair Candy Swap, hashmap
+283, easy, moveZeroes, Move Zeroes, two pointer
+315, hard, countSmaller, Count of Smaller Numbers After Self, mergesort

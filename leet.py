@@ -552,7 +552,29 @@ class Solution:
 
 
     def countSmaller(self, nums: List[int]) -> List[int]:  # 315
-        pass
+        class BIT:
+            def __init__(self, n):
+                self.sums = [0]*(n+1)
+            def update(self, i, v):
+                while i < len(self.sums):
+                    self.sums[i] += v
+                    i += (i&-i)
+            def query(self, i):
+                res=0
+                while i > 0:
+                    res += self.sums[i]
+                    i -= (i&-i)
+                return res
+        e = {v:i for i, v in enumerate(sorted(set(nums)))}
+        b = BIT(len(e))
+        output = []
+        indexes = [e[n] for n in nums]
+        for i in indexes[::-1]:
+            ans = b.query(i)
+            output.append(ans)
+            b.update(i+1, 1)
+        return output[::-1]
+
 
     def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:  # 1337
         solders = {}
@@ -568,6 +590,7 @@ class Solution:
         result.sort(key=lambda x: solders[x])
         return result[0:k]
 
+
     def findContentChildren(self, g: List[int], s: List[int]) -> int:  # 455
         g.sort(reverse=True)
         s.sort(reverse=True)
@@ -581,8 +604,18 @@ class Solution:
             else:ind1+=1
         return total
 
+
     def fairCandySwap(self, aliceSizes: List[int], bobSizes: List[int]) -> List[int]:  # 888
-        pass
+        diff = sum(bobSizes) - sum(aliceSizes)
+        aliceSizes.sort()
+        bobSizes.sort()
+        for i in aliceSizes:
+            for j in bobSizes:
+                if -(i - j)*2 == diff:
+                    return [i, j]
+                if -(i - j)*2 > diff:
+                    break
+
 
     def searchInsert(self, nums: List[int], target: int) -> int:  # 35
         i = 0
@@ -598,6 +631,7 @@ class Solution:
                 return mid
 
         return i
+
 
     def threeSum(self, nums: List[int]) -> List[List[int]]:  # 15
         if len(nums) < 3:
@@ -620,6 +654,19 @@ class Solution:
                     hashtable[nums[j]] = 1
         return res
 
+
+    def moveZeroes(self, nums: List[int]) -> None:  # 283
+        first_zero = -1
+        i = 0
+        while i < len(nums):
+            if nums[i] == 0 and first_zero == -1:
+                first_zero = i
+            elif nums[i] != 0 and first_zero != -1:
+                nums[first_zero] = nums[i]
+                nums[i] = 0
+                i = first_zero
+                first_zero = -1
+            i+=1
 
 
 # --recurse-submodules

@@ -232,6 +232,15 @@ class Test(unittest.TestCase):
        self.assertEqual(Solution().countSmaller([-1, -1]), [0, 0])
 
 
+    def test_fairCandySwap(self):
+        # test case 1
+        self.assertListEqual(Solution().fairCandySwap([1,1], [2,2]), [1,2])
+        # test case 2
+        self.assertListEqual(Solution().fairCandySwap([1,2], [2,3]), [1,2])
+        # test case 3
+        self.assertListEqual(Solution().fairCandySwap([2], [1,3]), [2,3])
+
+
 if __name__ == '__main__':
     test = unittest.main(exit=False)
     print(test.result.failures)
