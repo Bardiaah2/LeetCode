@@ -241,6 +241,33 @@ class Test(unittest.TestCase):
         self.assertListEqual(Solution().fairCandySwap([2], [1,3]), [2,3])
 
 
+    def test_isPalindrome(self):
+        # test case 1
+        self.assertEqual(Solution().isPalindrome("A man, a plan, a canal: Panama"), True)
+        # test case 2
+        self.assertEqual(Solution().isPalindrome("race a car"), False)
+        # test case 3
+        self.assertEqual(Solution().isPalindrome(" "), True)
+
+
+    def test_hammingWeight(self):
+        # test case 1
+        self.assertEqual(Solution().hammingWeight(11), 3)
+        # test case 2
+        self.assertEqual(Solution().hammingWeight(128), 1)
+        # test case 3
+        self.assertEqual(Solution().hammingWeight(2147483645), 30)
+
+
+    def test_isIsomorphic(self):
+        # test case 1
+        self.assertEqual(Solution().isIsomorphic("paper", "title"), True)
+        # test case 2
+        self.assertEqual(Solution().isIsomorphic("egg", "add"), True)
+        # test case 3
+        self.assertEqual(Solution().isIsomorphic("foo", "bar"), True)
+
+
 if __name__ == '__main__':
     test = unittest.main(exit=False)
     print(test.result.failures)

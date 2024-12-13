@@ -669,6 +669,52 @@ class Solution:
             i+=1
 
 
+    def isPalindrome(self, s: str) -> bool:  # 125
+        def valid(s: chr):
+            ascii = ord(s)
+            if 48 <= ascii <= 57 or 97 <= ascii <= 122:
+                return True
+            return False
+        
+        s = s.lower()
+        i, j  = 0, len(s) - 1
+        while i < j:
+            if not valid(s[i]):
+                i+=1
+                continue
+            if not valid(s[j]):
+                j-=1
+                continue
+            if s[i] != s[j]:
+                return False
+            i+=1
+            j-=1
+        return True
+    
+
+    def hammingWeight(self, n: int) -> int:  # 191
+        import math
+        count = 0
+        while n > 0:
+            m = int(math.log2(n))
+            n = n - 2**m
+            count += 1
+
+        return count
+
+
+    def isIsomorphic(self, s: str, t: str) -> bool:  # 205
+        mapped = {}
+        i = 0
+        while i < len(s):
+            if s[i] not in mapped.keys():
+                mapped.setdefault(s[i], ord(s[i]) - ord(t[i]))
+            elif (ord(s[i]) - ord(t[i])) != mapped[s[i]]:
+                return False
+            i+=1
+        
+        return True
+            
 # --recurse-submodules
 # 138
 # # 315 hard

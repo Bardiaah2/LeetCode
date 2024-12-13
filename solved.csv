@@ -37,3 +37,6 @@ num, difficulty, function name, name, tags
 888, easy, fairCandySwap, Fair Candy Swap, hashmap
 283, easy, moveZeroes, Move Zeroes, two pointer
 315, hard, countSmaller, Count of Smaller Numbers After Self, mergesort
+125, easy, isPalindrome, Valid Palindrome, two pointer
+191, easy, hammingWeight, Number of 1 Bits, Bit
+205, easy, isIsomorphic, Isomorphic Strings, hashmap
