@@ -40,3 +40,8 @@ num, difficulty, function name, name, tags
 125, easy, isPalindrome, Valid Palindrome, two pointer
 191, easy, hammingWeight, Number of 1 Bits, Bit
 205, easy, isIsomorphic, Isomorphic Strings, hashmap
+31, medium, nextPermutation, Next Permutation, two pointer
+169, easy, majorityElement, Majority Element, moore voting
+129, easy, containsNearbyDuplicate, Contains Duplicate II, two pointer
+700, easy, searchBST, Search in a Binary Search Tree, tree
+342, easy, isPowerOfFour, Power of Four, Bit

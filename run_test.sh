@@ -13,6 +13,7 @@ fails_error_array=()
 
 if [[ $result != *"line"* ]]; then  # to use wildcards do [[]]
     echo "Done successfuly!"
+    rm testfile.txt
     exit
 fi
 
@@ -52,7 +53,7 @@ done
 
 rm testfile.txt
 
-echo "Would you like to see the detailed failed test case(s)?(y / n) "
+echo "Would you like to see the detailed failed test case(s)? (y/n) "
 read answer
 if [ $answer = "y" ]; then
     python3 -m unittest test.Test

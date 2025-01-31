@@ -48,12 +48,12 @@ class ListNode:
 
 
 class Node:
-    def __init__(self, val: int, next: Optional['Node'], random: Optional['Node']) -> None:
+    def __init__(self, val:int , next: Optional['Node'] = None, random: Optional['Node'] = None) -> None:
         self.val = val
         self.next = next
         self.random = random
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # TODO
         temp = self
         result = []
         while temp:
@@ -675,7 +675,7 @@ class Solution:
             if 48 <= ascii <= 57 or 97 <= ascii <= 122:
                 return True
             return False
-        
+
         s = s.lower()
         i, j  = 0, len(s) - 1
         while i < j:
@@ -690,7 +690,7 @@ class Solution:
             i+=1
             j-=1
         return True
-    
+
 
     def hammingWeight(self, n: int) -> int:  # 191
         import math
@@ -704,17 +704,99 @@ class Solution:
 
 
     def isIsomorphic(self, s: str, t: str) -> bool:  # 205
+        # only one to one mapping is allowed
         mapped = {}
+        mappedTo = {}
         i = 0
         while i < len(s):
-            if s[i] not in mapped.keys():
-                mapped.setdefault(s[i], ord(s[i]) - ord(t[i]))
-            elif (ord(s[i]) - ord(t[i])) != mapped[s[i]]:
+            if s[i] in mapped.keys() and t[i] in mappedTo.keys():
+                if mapped[s[i]] != t[i] and mappedTo[t[i]] != s[i]:
+                    return False
+            elif s[i] not in mapped.keys():
+                if t[i] in mappedTo.keys():
+                    return False
+                mapped.setdefault(s[i], t[i])
+                mappedTo.setdefault(t[i], s[i])
+            else:
                 return False
             i+=1
-        
+
         return True
-            
+
+
+    def nextPermutation(self, nums: List[int]) -> None:  # 31
+        # starting from 0 find the next smallest number that is not smaller than the one next to it
+        # swap them out, and reverse the ones before the smaller one
+        def reverse(nums, start):
+            i, j = start, len(nums) - 1
+            while i < j:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+                j -= 1
+        i = len(nums) - 2
+        while i >= 0 and nums[i + 1] <= nums[i]:
+            i -= 1
+        if i >= 0:
+            j = len(nums) - 1
+            while nums[j] <= nums[i]:
+                j -= 1
+            nums[i], nums[j] = nums[j], nums[i]
+        reverse(nums, i + 1)
+
+
+    def majorityElement(self, nums: List[int]) -> int:  # 169
+        count = 0
+        candidate = 0
+
+        for num in nums:
+            if count == 0:
+                candidate = num
+
+            if num == candidate:
+                count += 1
+            else:
+                count -= 1
+
+        return candidate
+
+
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:  # 219
+        if (k >= len(nums)):
+            return len(set(nums)) != len(nums)
+
+        window = nums[0:k+1]
+        i = k+1
+        result = len(set(nums[0:k+1])) != len(nums[0:k+1])
+        while not result and i < len(nums):
+            window.pop(0)
+            if nums[i] in window:
+                result = True
+            window.append(nums[i])
+            i += 1
+
+        return result
+
+
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:  # 700
+        while root is not None:
+            if root.val == val:
+                return root
+            elif root.val < val:
+                root = root.right
+            else:
+                root = root.left
+        return root
+
+
+    def isPowerOfFour(self, n: int) -> bool:  # 342
+        if n <= 0 or n in [2,3]:
+            return False
+        if n in [1, 4]:
+            return True
+
+        return (not (n&(n-1))) and (len(bin(n-3)) % 2 == 0)
+
+
 # --recurse-submodules
 # 138
 # # 315 hard

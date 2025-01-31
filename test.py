@@ -51,6 +51,10 @@ class MakeClass:
         return result
 
 
+    def __Node(self) -> Node:  # TODO
+        value: List[List[int]]
+
+
     def get(self) -> Any:
         return self.__getattribute__('_MakeClass__' + self.cls().__repr__())()
 
@@ -265,7 +269,47 @@ class Test(unittest.TestCase):
         # test case 2
         self.assertEqual(Solution().isIsomorphic("egg", "add"), True)
         # test case 3
-        self.assertEqual(Solution().isIsomorphic("foo", "bar"), True)
+        self.assertEqual(Solution().isIsomorphic("foo", "bar"), False)
+        # test case 3
+        self.assertEqual(Solution().isIsomorphic("badc", "baba"), False)
+
+
+    def test_nextPermutation(self):
+        # test case 1
+        nums = [1,2,3]
+        Solution().nextPermutation(nums)
+        self.assertEqual(nums, [1,3,2])
+        # test case 2
+        nums = [3,2,1]
+        Solution().nextPermutation(nums)
+        self.assertEqual(nums, [1,2,3])
+        # test case 3
+        nums = [1,1,5]
+        Solution().nextPermutation(nums)
+        self.assertEqual(nums, [1,5,1])
+        # test case 4
+        nums = [1,3,2]
+        Solution().nextPermutation(nums)
+        self.assertEqual(nums, [2,1,3])
+        # test case 5
+        nums = [2,1,3]
+        Solution().nextPermutation(nums)
+        self.assertEqual(nums, [2,3,1])
+        # test case 6
+        nums = [2,3,1]
+        Solution().nextPermutation(nums)
+        self.assertEqual(nums, [3,1,2])
+        # test case 7
+        nums = [3,1,2]
+        Solution().nextPermutation(nums)
+        self.assertEqual(nums, [3,2,1])
+
+
+    def test_ConstainsNearbyDuplicate(self):
+        # test case 1
+        self.assertEqual(Solution().containsNearbyDuplicate([1,0,1,1], 1), True)
+        # test case 2
+        self.assertEqual(Solution().containsNearbyDuplicate([1,2,3,1,2,3], 2), False)
 
 
 if __name__ == '__main__':
